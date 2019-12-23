@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const members = require('./data/members');
 
+
 const app = express();
 
 const PORT =  process.env.PORT || 5000;
@@ -16,5 +17,10 @@ app.get('/about', (req, res) => {
 
 // Gets all members
 app.get('/api/members', (req, res) => res.json(members));
+
+// Get Single Member
+app.get('/api/members/:id', (req, res) => {
+    res.send(members.filter(member => member.id === parseInt(req.params.id)));
+});
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`) );
